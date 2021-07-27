@@ -3,17 +3,14 @@ package com.example.leoniplatform.controller;
 import com.example.leoniplatform.model.User;
 import com.example.leoniplatform.service.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 @RestController
 
 public class RegistrationController {
     @Autowired
     private RegistrationService service;
-    @PostMapping("/registeruser")
+    @PostMapping("/adduser")
     @CrossOrigin(origins = "http://localhost:4200")
     public User registerUser(@RequestBody User user) throws Exception{
         String temEmailId=user.getEmailId();
@@ -42,6 +39,18 @@ public class RegistrationController {
 
         }     return userObj;
 
+    }
+    @GetMapping("/allusers")
+    @CrossOrigin(origins = "http://localhost:4200")
+    public List<User> findAllUsers() throws Exception{
+        List<User> users=service.findAllUsers();
+         return users;
+    }
+    @DeleteMapping("/deleteuser/{id}")
+    @CrossOrigin(origins = "http://localhost:4200")
+    public String deleteUser(@PathVariable(value = "id") int id) {
+        service.deleteUser(id);
+        return "deleted";
     }
 
 }

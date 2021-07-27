@@ -4,7 +4,7 @@ import com.example.leoniplatform.model.User;
 import com.example.leoniplatform.repository.RegistrationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import java.util.List;
 @Service
 public class RegistrationService {
     @Autowired
@@ -23,5 +23,10 @@ public class RegistrationService {
     {
         return repo.findByEmailIdAndPassword(emailId,password);
     }
-
+    public List<User> findAllUsers(){
+       return repo.findAll();
+    }
+     public void deleteUser(int id){
+         repo.deleteById(id);
+}
 }
