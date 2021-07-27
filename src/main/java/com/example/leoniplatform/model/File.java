@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="MyFiles")
-public class Files {
+public class File {
     @Id
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     @GeneratedValue(generator = "uuid")
@@ -27,25 +27,25 @@ public class Files {
                     CascadeType.MERGE
             },
             mappedBy = "files")
-    private Set<Practice> practices = new HashSet<>();
+    private Set<Order> orders = new HashSet<>();
 
-    public Set<Practice> getPractices() {
-        return practices;
+    public Set<Order> getPractices() {
+        return orders;
     }
 
-    public void setPractices(Set<Practice> practices) {
-        this.practices = practices;
+    public void setPractices(Set<Order> orders) {
+        this.orders = orders;
     }
 
-    public Files() { }
-    public Files(String name, String type) {
+    public File() { }
+    public File(String name, String type) {
 
         this.name = name;
         this.type = type;
 
     }
 
-    public Files(String name, String type, byte[] data) {
+    public File(String name, String type, byte[] data) {
 
         this.name = name;
         this.type = type;

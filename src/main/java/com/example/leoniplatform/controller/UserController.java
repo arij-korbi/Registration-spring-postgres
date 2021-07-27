@@ -1,15 +1,16 @@
 package com.example.leoniplatform.controller;
 
+import com.example.leoniplatform.model.Profile;
 import com.example.leoniplatform.model.User;
-import com.example.leoniplatform.service.RegistrationService;
+import com.example.leoniplatform.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @RestController
 
-public class RegistrationController {
+public class UserController {
     @Autowired
-    private RegistrationService service;
+    private UserService service;
     @PostMapping("/adduser")
     @CrossOrigin(origins = "http://localhost:4200")
     public User registerUser(@RequestBody User user) throws Exception{
@@ -17,8 +18,7 @@ public class RegistrationController {
         if(temEmailId != null && !"".equals(temEmailId)) {
             User userobj=service.fetchUserByEmailId(temEmailId);
             if (userobj!=null){
-                throw new Exception("user with"+temEmailId+"already exists");
-            }
+                throw new Exception("user with"+" "+temEmailId+" "+"already exists");            }
         }
         User userObj=null;
         userObj=service.saveUser(user);
@@ -40,6 +40,13 @@ public class RegistrationController {
         }     return userObj;
 
     }
+
+    @GetMapping("/user/{id}")
+    @CrossOrigin(origins = "http://localhost:4200")
+    public User findUserById(@PathVariable(value = "id") int id) {
+        User user = service.findUserById(id);
+        return user;
+    }
     @GetMapping("/allusers")
     @CrossOrigin(origins = "http://localhost:4200")
     public List<User> findAllUsers() throws Exception{
@@ -51,6 +58,22 @@ public class RegistrationController {
     public String deleteUser(@PathVariable(value = "id") int id) {
         service.deleteUser(id);
         return "deleted";
+    }
+    @PutMapping("/edituser/{id}")
+    @CrossOrigin(origins = "http://localhost:4200")
+    public User updateProfile(@PathVariable int id, @RequestBody User userDetails) throws Exception {
+        User user=service.findUserById(id);
+        if (user == null) {
+            throw new Exception("user with" + id + "doesn't exist");
+        }
+
+            user.setUserName(userDetails.getUserName());
+        user.setEmailId(userDetails.getEmailId());
+        user.setPassword(userDetails.getPassword());
+        user.setProfile(userDetails.getProfile());
+
+        User updatedUser = service.saveUser(user);
+        return updatedUser;
     }
 
 }

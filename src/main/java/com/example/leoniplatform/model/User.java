@@ -1,11 +1,11 @@
 package com.example.leoniplatform.model;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table (name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,12 +13,31 @@ public class User {
     private String emailId;
     private String userName;
     private String password;
+
+
+    private String profile;
     public User(){}
-    public User(int id, String emailId, String userName, String password) {
+
+    public User(String emailId, String userName, String password) {
+        this.emailId = emailId;
+        this.userName = userName;
+        this.password = password;
+    }
+
+    public User(int id, String emailId, String userName, String password, String profile) {
         this.id = id;
         this.emailId = emailId;
         this.userName = userName;
         this.password = password;
+        this.profile = profile;
+    }
+
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
     }
 
     public int getId() {

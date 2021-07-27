@@ -1,14 +1,15 @@
 package com.example.leoniplatform.service;
 
+import com.example.leoniplatform.model.Profile;
 import com.example.leoniplatform.model.User;
-import com.example.leoniplatform.repository.RegistrationRepository;
+import com.example.leoniplatform.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
-public class RegistrationService {
+public class UserService {
     @Autowired
-    private RegistrationRepository repo;
+    private UserRepository repo;
     public User saveUser(User user)
     {
         return repo.save(user);
@@ -29,4 +30,6 @@ public class RegistrationService {
      public void deleteUser(int id){
          repo.deleteById(id);
 }
+    public User findUserById (int id){ return repo.findUserById(id); }
+
 }

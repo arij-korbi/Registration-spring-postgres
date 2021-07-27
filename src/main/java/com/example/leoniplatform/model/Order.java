@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "practices")
-public class Practice {
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -48,13 +48,13 @@ public class Practice {
         this.files = files;
     }
 
-    public Practice (){}
-    public Practice( String title,String plant){
+    public Order(){}
+    public Order(String title, String plant){
         this.title = title;
         this.plant = plant;
     }
 
-    public Practice(int id, String title, String plant, String orgUnit, String issuedBy, Date date, String approvedBy, String categoryOfImprovement, String benefits, String area, String documentation, long number, String email, String discriptionB, String discriptionA, String status) {
+    public Order(int id, String title, String plant, String orgUnit, String issuedBy, Date date, String approvedBy, String categoryOfImprovement, String benefits, String area, String documentation, long number, String email, String discriptionB, String discriptionA, String status) {
         this.id = id;
         this.title = title;
         this.plant = plant;
